@@ -1,0 +1,108 @@
+<form #f="ngForm" (ngSubmit)="save(f)">
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="name">Name</label>
+      
+      <input type="name" class="form-control" id="name" placeholder="Name" name="name" required
+        [(ngModel)]="user.name" #name="ngModel" [ngClass]="applyCssError(name)">
+      
+      <app-field-control-error [showError]="verifyValidToTouched(name)" msgError="Name is required."></app-field-control-error>
+      
+    </div>
+    <div class="form-group col-md-4">
+      <label for="email">Email</label>
+      
+      <input type="email" class="form-control" id="email" placeholder="Email" name="email" required email
+       [(ngModel)]="user.email" #email="ngModel" [ngClass]="applyCssError(email)">
+      
+      <app-field-control-error [showError]="verifyValidToTouched(email)" msgError="Email is required."></app-field-control-error>
+      
+    </div>
+    <div class="form-group col-md-4">
+      <label for="password">Password</label>
+      
+      <input type="password" class="form-control" id="password" placeholder="Password" name="password" required
+       [(ngModel)]="user.password" #password="ngModel" [ngClass]="applyCssError(password)">
+      
+      <app-field-control-error [showError]="verifyValidToTouched(password)" msgError="Password is required."></app-field-control-error>
+    </div>
+  </div>
+
+  <div class="form-row" ngModelGroup="address">
+    <div class="form-group col-md-2">
+      <label for="inputZip">Zip</label>
+      <input type="text" class="form-control" id="inputZip" placeholder="Zip" name="zip" #zip="ngModel" [(ngModel)]="user.address.zip" (blur)="lookForZip($event.target.value, f)">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="inputStreet">Street</label>
+      
+      <input type="text" class="form-control" id="inputStreet" placeholder="Street" name="street" #street="ngModel" [(ngModel)]="user.address.street">
+      
+      <app-field-control-error [showError]="verifyValidToTouched(street)" msgError="Street is required."></app-field-control-error>
+    </div>
+    <div class="form-group col-md-3">
+      <label for="inputNeighborhood">Neighborhood</label>
+      
+      <input type="text" class="form-control" id="inputNeighborhood" placeholder="Neighborhood" name="neighborhood" #neighborhood="ngModel" [(ngModel)]="user.address.neighborhood">
+      
+      <app-field-control-error [showError]="verifyValidToTouched(neighborhood)" msgError="Neighborhood is required."></app-field-control-error>
+    </div>
+    <div class="form-group col-md-1">
+      <label for="inputNumber">Number</label>
+      <input type="text" class="form-control" id="inputNumber" placeholder="Number" name="number" #number="ngModel" [(ngModel)]="user.address.number">
+      <app-field-control-error [showError]="verifyValidToTouched(number)" msgError="Number is required."></app-field-control-error>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputCity">City</label>
+      <input type="text" class="form-control" id="inputCity" placeholder="City" name="city" #city="ngModel" [(ngModel)]="user.address.city">
+      <app-field-control-error [showError]="verifyValidToTouched(city)" msgError="City is required."></app-field-control-error>
+    </div>
+    <div class="form-group col-md-1">
+      <label for="inputState">State</label>
+      <select id="inputState" class="form-control" name="state" #state="ngModel" [(ngModel)]="user.address.state">
+        <option value="AC">AC</option>
+        <option value="AL">AL</option>
+        <option value="AP">AP</option>
+        <option value="AM">AM</option>
+        <option value="BA">BA</option>
+        <option value="CE">CE</option>
+        <option value="DF">DF</option>
+        <option value="ES">ES</option>
+        <option value="GO">GO</option>
+        <option value="MA">MA</option>
+        <option value="MT">MT</option>
+        <option value="MS">MS</option>
+        <option value="MG">MG</option>
+        <option value="PA">PA</option>
+        <option value="PB">PB</option>
+        <option value="PR">PR</option>
+        <option value="PE">PE</option>
+        <option value="PI">PI</option>
+        <option value="RJ">RJ</option>
+        <option value="RN">RN</option>
+        <option value="RS">RS</option>
+        <option value="RO">RO</option>
+        <option value="RR">RR</option>
+        <option value="SC">SC</option>
+        <option value="SP">SP</option>
+        <option value="SE">SE</option>
+        <option value="TO">TO</option>
+      </select>
+      <app-field-control-error [showError]="verifyValidToTouched(state)" msgError="State is required."></app-field-control-error>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="newsletter" name="newsletter" #newslette="ngModel" [(ngModel)]="user.newsletter">
+      <label class="form-check-label" for="newsletter">
+        Receive newsletter
+      </label>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary float-right" *ngIf="f.valid">Sign in</button>
+  
+  <app-form-debug [form]="f"></app-form-debug>
+
+</form>
+
