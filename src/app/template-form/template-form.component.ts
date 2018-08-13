@@ -29,7 +29,8 @@ export class TemplateFormComponent implements OnInit {
 
   save(form) {
     // console.log(form);
-    console.log(this.user);
+    this.http.post("https://httpbin.org/post", form.value)
+      .subscribe(resp => console.log(resp));
   }
 
   lookForZip(zip, form) {
@@ -50,7 +51,6 @@ export class TemplateFormComponent implements OnInit {
     if (!data.erro == true) {
       form.form.patchValue({
         address: {
-          zip: data.cep,
           street: data.logradouro,
           state: data.uf,
           city: data.localidade,

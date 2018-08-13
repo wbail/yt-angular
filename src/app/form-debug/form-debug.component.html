@@ -3,19 +3,16 @@
     Form Details
   </div>
 
-  <pre>
-    <code>
+  <pre class="jumbotron">
       Form Valid: {{ form.valid }}
-    </code>
   </pre>
-  <pre>
-    <code>
+  <pre class="jumbotron">
       Form Submitted: {{ form.submitted }}
-    </code>
   </pre>
-  <pre>
+  <pre class="jumbotron">
     <code>
-      Values: <br> {{ form.value | json }}
+      Values:
+      <p>{{ form.value | json }}</p>
     </code>
   </pre>
 </div>

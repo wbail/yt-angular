@@ -1,3 +1,82 @@
-<p>
-  data-form works!
-</p>
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="name">Name</label>
+      <input type="name" class="form-control" id="name" placeholder="Name" formControlName="name" [ngClass]="applyCssError('name')"> 
+      <app-field-control-error [showError]="verifyValidToTouched('name')" msgError="Name is required."></app-field-control-error>
+    </div>
+
+    <div class="form-group col-md-4">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email" [ngClass]="applyCssError('email')">
+      <app-field-control-error [showError]="verifyValidToTouched('email')" msgError="Email is required."></app-field-control-error>
+      <app-field-control-error [showError]="verifyInvalidEmail()" msgError="Invalid Email."></app-field-control-error>
+    </div>
+    
+    <div class="form-group col-md-4">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password" [ngClass]="applyCssError('password')">
+      <app-field-control-error [showError]="verifyValidToTouched('password')" msgError="Password is required."></app-field-control-error>
+    </div>
+  </div>
+
+  <div class="form-row" formGroupName="address">
+    <div class="form-group col-md-2">
+      <label for="inputZip">Zip</label>
+      <input type="text" class="form-control" id="inputZip" placeholder="Zip" formControlName="zip" [ngClass]="applyCssError('address.zip')"
+       (blur)="lookForZip()">
+      <app-field-control-error [showError]="verifyValidToTouched('address.zip')" msgError="Zip is required."></app-field-control-error>
+    </div>
+    
+    <div class="form-group col-md-3">
+      <label for="inputStreet">Street</label>
+      <input type="text" class="form-control" id="inputStreet" placeholder="Street" formControlName="street" [ngClass]="applyCssError('address.street')">
+      <app-field-control-error [showError]="verifyValidToTouched('address.street')" msgError="Street is required."></app-field-control-error>
+    </div>
+
+    <div class="form-group col-md-3">
+      <label for="inputNeighborhood">Neighborhood</label>
+      <input type="text" class="form-control" id="inputNeighborhood" placeholder="Neighborhood" formControlName="neighborhood" [ngClass]="applyCssError('address.neighborhood')">
+      <app-field-control-error [showError]="verifyValidToTouched('address.neighborhood')" msgError="Eeighborhood is required."></app-field-control-error>
+    </div>
+    
+    <div class="form-group col-md-1">
+      <label for="inputNumber">Number</label>
+      <input type="text" class="form-control" id="inputNumber" placeholder="Number" formControlName="number" [ngClass]="applyCssError('address.number')">
+      <app-field-control-error [showError]="verifyValidToTouched('address.number')" msgError="Number is required."></app-field-control-error>
+    </div>
+    
+    <div class="form-group col-md-2">
+      <label for="inputCity">City</label>
+      <input type="text" class="form-control" id="inputCity" placeholder="City" formControlName="city" [ngClass]="applyCssError('address.city')">
+      <app-field-control-error [showError]="verifyValidToTouched('address.city')" msgError="City is required."></app-field-control-error>
+    </div>
+    
+    <div class="form-group col-md-1">
+      <label for="inputState">State</label>
+      <select id="inputState" class="form-control" formControlName="state" [ngClass]="applyCssError('address.state')">
+        
+      </select>
+      <app-field-control-error [showError]="verifyValidToTouched('address.state')" msgError="State is required."></app-field-control-error>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="newsletter" formControlName="newsletter">
+      <label class="form-check-label" for="newsletter">
+        Receive newsletter
+      </label>
+    </div>
+  </div>
+
+  <div class="btn-group btn-group-lg float-right" role="group">
+    <button type="reset" class="btn btn-default">Reset</button>
+    <button type="submit" class="btn btn-primary" *ngIf="!form.valid">Save</button>
+  </div>
+  
+  
+  <app-form-debug [form]="form"></app-form-debug>
+
+</form>
+

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -9,6 +9,7 @@ import { TemplateFormComponent } from './template-form/template-form.component';
 import { DataFormComponent } from './data-form/data-form.component';
 import { FormDebugComponent } from './form-debug/form-debug.component';
 import { FieldControlErrorComponent } from './field-control-error/field-control-error.component';
+import { DataFormModule } from './data-form/data-form.module';
 
 @NgModule({
   declarations: [
@@ -20,11 +21,17 @@ import { FieldControlErrorComponent } from './field-control-error/field-control-
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
-    HttpModule
+    HttpModule,
+    DataFormModule,
   ],
-  providers: [],
+  providers: [
+    
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}
