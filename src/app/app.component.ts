@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Http, Response } from '../../node_modules/@angular/http';
+import { HttpClient } from '@angular/common/http';
+import { State } from './models/state';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,10 @@ import { Http, Response } from '../../node_modules/@angular/http';
 export class AppComponent {
   title = 'app';
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   getUfsBrazil() {
-    return this.http.get('https://raw.githubusercontent.com/felipefdl/cidades-estados-brasil-json/master/Estados.json');
+    return this.http.get<State[]>('https://raw.githubusercontent.com/felipefdl/cidades-estados-brasil-json/master/Estados.json');
+    // return this.http.get<State[]>('../assets/ufs.json');
   }
 }

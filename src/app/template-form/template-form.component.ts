@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from "@angular/http";
+import { FindZipService } from '../services/find-zip.service';
 
 @Component({
   selector: 'app-template-form',
@@ -23,7 +24,7 @@ export class TemplateFormComponent implements OnInit {
     }
   }
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private findZip: FindZipService) {
 
   }
 
@@ -34,9 +35,9 @@ export class TemplateFormComponent implements OnInit {
   }
 
   lookForZip(zip, form) {
-    if (zip != "") {
-      this.http.get(`//viacep.com.br/ws/${zip}/json/`)
-        .subscribe(data => this.populateData(data.json(), form));
+    if (zip !== "" && zip != null) {
+      this.findZip.lookForZip(zip)
+        .subscribe(data => this.populateData(data, form));
     }
   }
 

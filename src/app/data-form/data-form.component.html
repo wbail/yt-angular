@@ -55,7 +55,7 @@
     <div class="form-group col-md-1">
       <label for="inputState">State</label>
       <select id="inputState" class="form-control" formControlName="state" [ngClass]="applyCssError('address.state')">
-        
+        <option *ngFor="let state of states | async" [value]="state.Sigla">{{ state.Sigla }}</option>
       </select>
       <app-field-control-error [showError]="verifyValidToTouched('address.state')" msgError="State is required."></app-field-control-error>
     </div>

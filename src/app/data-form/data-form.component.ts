@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Http } from '@angular/http';
 import { State } from '../models/state';
 import { AppComponent } from 'src/app/app.component';
+import { FindZipService } from '../services/find-zip.service';
+import { Observable } from '../../../node_modules/rxjs';
 
 @Component({
   selector: 'app-data-form',
@@ -12,9 +14,9 @@ import { AppComponent } from 'src/app/app.component';
 export class DataFormComponent implements OnInit {
 
   form: FormGroup;
-  states: State[];
+  states: Observable<State[]>;
 
-  constructor(private http: Http, private app: AppComponent) { }
+  constructor(private http: Http, private app: AppComponent, private findZip: FindZipService) { }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -32,12 +34,8 @@ export class DataFormComponent implements OnInit {
       newsletter: new FormControl(null),
     });
 
-    this.app.getUfsBrazil()
-      .subscribe(
-        data => {
-          this.states = data;
-          console.log(data.json());
-      });
+    this.states = this.app.getUfsBrazil();
+    
   }
 
   save() {
@@ -69,9 +67,9 @@ export class DataFormComponent implements OnInit {
 
     let zip = this.form.get('address.zip').value;
 
-    if (zip != "") {
-      this.http.get(`//viacep.com.br/ws/${zip}/json/`)
-        .subscribe(data => this.populateData(data.json()));
+    if (zip !== "" && zip != null) {
+      this.findZip.lookForZip(zip)
+        .subscribe(data => this.populateData(data));
     }
   }
 
