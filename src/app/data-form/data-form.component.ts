@@ -15,6 +15,7 @@ export class DataFormComponent implements OnInit {
 
   form: FormGroup;
   states: Observable<State[]>;
+  positions: any[];
 
   constructor(private http: Http, private app: AppComponent, private findZip: FindZipService) { }
 
@@ -32,9 +33,12 @@ export class DataFormComponent implements OnInit {
         city: new FormControl(null, [Validators.required]),
       }),
       newsletter: new FormControl(null),
+      position: new FormControl(null)
     });
 
     this.states = this.app.getUfsBrazil();
+
+    this.positions = this.app.getPositions();
     
   }
 
@@ -71,6 +75,10 @@ export class DataFormComponent implements OnInit {
       this.findZip.lookForZip(zip)
         .subscribe(data => this.populateData(data));
     }
+  }
+
+  comparePositions(pos1, pos2) {
+    return pos1 && pos2 ? (pos1.title === pos2.title && pos1.desc === pos2.desc && pos1.level === pos2.level) : pos1 && pos2;
   }
 
   populateData(data) {

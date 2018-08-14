@@ -20,6 +20,16 @@
     </div>
   </div>
 
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label for="inputPosition">Position</label>
+      <select id="inputPosition" class="form-control" formControlName="position" [ngClass]="applyCssError('position')" [compareWith]="comparePositions">
+        <option *ngFor="let position of positions" [ngValue]="position">{{ position.desc }}</option>
+      </select>
+      <app-field-control-error [showError]="verifyValidToTouched('position')" msgError="Position is required."></app-field-control-error>
+    </div>
+  </div>
+
   <div class="form-row" formGroupName="address">
     <div class="form-group col-md-2">
       <label for="inputZip">Zip</label>
