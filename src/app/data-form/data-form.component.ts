@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { Http } from '@angular/http';
 import { State } from '../models/state';
 import { AppComponent } from 'src/app/app.component';
@@ -16,6 +16,9 @@ export class DataFormComponent implements OnInit {
   form: FormGroup;
   states: Observable<State[]>;
   positions: any[];
+  techs: any[];
+  experience: any[];
+  frameworks: any[];
 
   constructor(private http: Http, private app: AppComponent, private findZip: FindZipService) { }
 
@@ -32,14 +35,31 @@ export class DataFormComponent implements OnInit {
         neighborhood: new FormControl(null, [Validators.required]),
         city: new FormControl(null, [Validators.required]),
       }),
-      newsletter: new FormControl(null),
-      position: new FormControl(null)
+      newsletter: new FormControl(null, [Validators.pattern('true')]),
+      position: new FormControl(null),
+      techs: new FormControl(null),
+      experience: new FormControl(null),
+      frameworks: new FormControl(null)
     });
 
     this.states = this.app.getUfsBrazil();
 
     this.positions = this.app.getPositions();
+
+    this.techs = this.app.getTechnologies();
+
+    this.experience = this.app.getExperience(); 
+
+    this.frameworks = this.buildFrameworks();
+  }
+
+
+  buildFrameworks() {
+    // return this.app.getFrameworks();
     
+    const values = this.app.getFrameworks();
+    return values;
+
   }
 
   save() {
@@ -118,6 +138,14 @@ export class DataFormComponent implements OnInit {
     return {
       'is-invalid': this.verifyValidToTouched(field)
     }
+  }
+
+  selectTechs() {
+    this.form.get('techs').setValue(['C#', 'Angular', 'Git']);
+  }
+
+  selectExperience() {
+    this.form.get('experience').setValue('1');
   }
 
 }

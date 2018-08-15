@@ -1,18 +1,21 @@
+<br>
 <div style="margin-top: 20px" *ngIf="form">
   <div>
     Form Details
   </div>
 
-  <pre class="jumbotron">
+  <div class="jumbotron">
       Form Valid: {{ form.valid }}
-  </pre>
-  <pre class="jumbotron">
+  </div>
+  <div class="jumbotron">
       Form Submitted: {{ form.submitted }}
-  </pre>
-  <pre class="jumbotron">
-    <code>
-      Values:
-      <p>{{ form.value | json }}</p>
-    </code>
-  </pre>
+  </div>
+  <div class="jumbotron">
+    Values:
+    <pre>
+      <p>
+          {{ form.value | json }}
+      </p>
+    </pre>
+  </div>
 </div>
